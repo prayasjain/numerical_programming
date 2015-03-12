@@ -1,0 +1,37 @@
+class Integrate : #class to calculate integral of a function from a to b
+    def TrapezoidalRule(self,order,li,a,b) :
+        def f(x) : #function to calculate value of a function for a given x
+            s=0
+            z=0
+            for t in li :
+                s=s+pow(x,z)*t
+                z=z+1
+            return s ;
+        
+        n= int(b-a)*1000
+        h=(b-a)/n
+        s=f(a)+f(b)
+        for i in range(n-1) :
+            s=s+2*f(a+h*(i+1))     #All values are added twice except the initial and final point which are added just once
+        s=s/(2*n)
+        s=s*(b-a)
+        return s
+
+    
+    def solve(self,order,coeffs,method):   #To integrate x^2 send coeffs as [0,0,1]
+        if (method=='TrapezoidalRule') :
+            a=float(input('enter the lower limit of interval: ')) #limits of definite integral
+            b=float(input('enter the upper limit of interval: '))
+
+            return self.TrapezoidalRule(order,coeffs,a,b)
+        if (method=='SimpsonsRule') :
+            a=float(input('enter the lower limit of interval: '))
+            b=float(input('enter the upper limit of interval: '))
+            return self.SimpsonsRule(order,coeffs,a,b)
+
+itr=Integrate()
+print(itr.solve(2,[0,0,1],'TrapezoidalRule'))
+
+
+
+        
