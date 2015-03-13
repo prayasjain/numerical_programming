@@ -1,0 +1,33 @@
+class Interpolate:
+    
+    def solve(self,L,M,method):    #function to check method used by user
+        if(method=="newton"):
+            return (self.Newton(L,M))
+        
+
+                                                    
+    def Newton(self,L,M):                         #solving using newtons method                          
+       
+        
+        from numpy import array         #importing array from numpy
+        from numpy.polynomial import polynomial as P        #importing polynomial functions from numpy
+        n=len(L)                                                            
+        mat=[[0.0 for i in range(n)] for j in range(n)]                    #initializing matrix
+        for i in range(n):                                                 
+            mat[i][0]=M[i]
+        for i in range(1,n):                                               
+            for j in range(n-i):
+                mat[j][i]=(mat[j+1][i-1]-mat[j][i-1])/(L[j+i]-L[j])
+        result=array((mat[0][0],))                                          
+        for i in range(1,n):
+            prod=(-1*L[0],1)                                               
+                                                                            
+            for j in range(1,i):
+                prod=P.polymul(prod,(-1*L[j],1))                              #calculating result using newtons method
+            result=P.polyadd(result,array(prod)*mat[0][i])                  
+        return (list(result))                                   #returning final answer in the form of list                                               
+
+#apx=Interpolate()                                                          
+#for method in ["newton","lagrange"]:
+#    solution=apx.solve([1,2,3],[0,-1,0],method)
+#    print(solution)
