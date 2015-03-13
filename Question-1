@@ -44,3 +44,11 @@ class LPsolver():
             for i in range(l_b):
                 if(i!=r):
                     arr[i,:]=arr[i,:]-(arr[i,c]/arr[r,c])*arr[r,:]
+
+        for i in range(len(bx)):
+            if bx[i]<l_a:
+                x[bx[i]]=arr[i,-1]
+        x=map(int,x)
+
+        x.append(sum([x[i]*a[i] for i in range(l_a)]))
+        return x
